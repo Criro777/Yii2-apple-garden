@@ -12,3 +12,6 @@
 <li>Кнопка удаления яблока удаляет его в любом состоянии</li>
 
 <h5>Скриншоты для визуализации описанного выше</h5>
+<img width="1388" height="671" alt="522026283-c0e0435f-7c74-41aa-9105-b65b0928fe5b" src="https://github.com/user-attachments/assets/41c5d74b-8672-4e61-8468-5ac6d433bbb4" />
+<img width="1356" height="694" alt="522026338-67dd21ed-4016-420b-b47d-ad51947b580e" src="https://github.com/user-attachments/assets/c848d448-43fa-4b89-8c93-dbbcaedcef9b" />
+<img width="1346" height="696" alt="2025-12-03_21-08-57" src="https://github.com/user-attachments/assets/612222be-fb3a-4589-a786-5ee130207eb5" />
