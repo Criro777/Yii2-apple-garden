@@ -1,2 +1,11 @@
 suite_namespace: backend\tests\unit
 actor: UnitTester
+modules:
+  enabled:
+    - Asserts
+    - Yii2:
+        configFile: 'config/test.php'
+        transaction: true
+        cleanup: true
+        entryScript: ''
+  step_decorators: ~
