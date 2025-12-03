@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Throwable;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Exception;
@@ -20,6 +21,9 @@ class Apple extends ActiveRecord {
     const STATUS_ON_TREE = 1;
     const STATUS_ON_GROUND = 2;
     const STATUS_ROTTEN = 3;
+
+    const ROTTEN_HOURS = 5;
+    const ROTTEN_SECONDS = self::ROTTEN_HOURS * 3600;
 
     const THIRTY_DAYS = 30 * 24 * 3600;
 
@@ -71,6 +75,19 @@ class Apple extends ActiveRecord {
     }
 
     /**
+     * Проверяет, не испортилось ли яблоко
+     * @throws Exception
+     */
+    private function updateRottenStatus(): void
+    {
+        if ($this->status === self::STATUS_ON_GROUND && $this->date_fall && (time() - $this->date_fall) > self::ROTTEN_SECONDS) {
+            $this->status = self::STATUS_ROTTEN;
+            $this->save(false);
+        }
+    }
+
+
+    /**
      * Упасть на землю
      * @throws Exception
      */
@@ -82,6 +99,43 @@ class Apple extends ActiveRecord {
 
         $this->status = self::STATUS_ON_GROUND;
         $this->date_fall = time();
+
+        return $this->save(false);
+    }
+
+    /**
+     * Съесть часть яблока
+     * @param float $percent Процент откушенной части
+     * @throws Exception
+     * @throws Throwable
+     */
+    public function eat(float $percent): bool|int
+    {
+        $this->updateRottenStatus();
+
+        if ($this->status === self::STATUS_ON_TREE) {
+            throw new Exception('Съесть нельзя, яблоко на дереве');
+        }
+
+        if ($this->status === self::STATUS_ROTTEN) {
+            throw new Exception('Съесть нельзя, яблоко испортилось');
+        }
+
+        if ($percent <= 0 || $percent > 100) {
+            throw new Exception('Некорректный процент');
+        }
+
+        $newPercent = $this->eaten_percent + $percent;
+
+        if ($newPercent > 100) {
+            throw new Exception('Нельзя съесть больше 100%');
+        }
+
+        $this->eaten_percent = $newPercent;
+
+        if ($this->eaten_percent == 100) {
+            return $this->delete() !== false;
+        }
 
         return $this->save(false);
     }
