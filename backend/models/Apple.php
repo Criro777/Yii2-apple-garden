@@ -37,6 +37,24 @@ class Apple extends ActiveRecord {
         'оранжевое' => '#FFA500'
     ];
 
+    private const STATUS_TEXTS = [
+        self::STATUS_ON_TREE => 'На дереве',
+        self::STATUS_ON_GROUND => 'Упало',
+        self::STATUS_ROTTEN => 'Гнилое',
+    ];
+
+    private const STATUS_ICONS = [
+        self::STATUS_ON_TREE => '🌳',
+        self::STATUS_ON_GROUND => '🍎',
+        self::STATUS_ROTTEN => '🤢',
+    ];
+
+    private const STATUS_CLASSES = [
+        self::STATUS_ON_TREE => 'apple-on-tree',
+        self::STATUS_ON_GROUND => 'apple-on-ground',
+        self::STATUS_ROTTEN => 'apple-rotten',
+    ];
+
 
     public static function tableName(): string
     {
@@ -138,6 +156,81 @@ class Apple extends ActiveRecord {
         }
 
         return $this->save(false);
+    }
+
+    /**
+     * Получить размер оставшейся части
+     */
+    public function getSize(): float|int
+    {
+        return (100 - $this->eaten_percent) / 100;
+    }
+
+    /**
+     * Получить статус в текстовом виде
+     */
+    public function getStatusText(): string
+    {
+        return self::STATUS_TEXTS[$this->status] ?? 'Неизвестно';
+    }
+
+    /**
+     * Получить иконку статуса
+     */
+    public function getStatusIcon(): string
+    {
+        return self::STATUS_ICONS[$this->status] ?? '❓';
+    }
+
+    /**
+     * Получить CSS-класс для состояния
+     */
+    public function getStatusClass(): string
+    {
+        return self::STATUS_CLASSES[$this->status] ?? '';
+    }
+
+    /**
+     * Получить цвет в HEX или градиенте
+     */
+    public function getColorHex(): string
+    {
+        return self::COLOR_MAP[$this->color] ?? '#FFFFFF';
+    }
+
+    /**
+     * Получить время, оставшееся до гниения
+     */
+    public function getTimeToRot(): float|int|null
+    {
+        if ($this->status !== self::STATUS_ON_GROUND || !$this->date_fall) {
+            return null;
+        }
+
+        $timeLeft = ($this->date_fall + self::ROTTEN_SECONDS) - time();
+
+        return max($timeLeft, 0);
+    }
+
+    /**
+     * Получить строку времени до гниения
+     */
+    public function getTimeToRotText(): string
+    {
+        $timeLeft = $this->getTimeToRot();
+
+        if ($timeLeft === null) {
+            return '';
+        }
+
+        if ($timeLeft <= 0) {
+            return 'Испортилось';
+        }
+
+        $hours = floor($timeLeft / 3600);
+        $minutes = floor(($timeLeft % 3600) / 60);
+
+        return sprintf('%dч %dм до гниения', $hours, $minutes);
     }
 
     /**
