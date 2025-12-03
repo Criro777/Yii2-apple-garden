@@ -43,8 +43,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index',
-                '<action>'=>'site/<action>'
+                '' => 'apple/index',
+                '<action>'=>'site/<action>',
             ],
         ],
     ],
