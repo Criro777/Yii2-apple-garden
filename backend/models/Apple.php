@@ -71,6 +71,22 @@ class Apple extends ActiveRecord {
     }
 
     /**
+     * Упасть на землю
+     * @throws Exception
+     */
+    public function fallToGround(): bool
+    {
+        if ($this->status !== self::STATUS_ON_TREE) {
+            throw new Exception('Яблоко уже на земле или испорчено');
+        }
+
+        $this->status = self::STATUS_ON_GROUND;
+        $this->date_fall = time();
+
+        return $this->save(false);
+    }
+
+    /**
      * Массовое создание случайных яблок
      * @throws Exception
      */
