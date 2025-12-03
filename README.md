@@ -1,60 +1,14 @@
 <p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">Приложение яблоневый сад на Yii 2 Advanced</h1>
     <br>
 </p>
+<p>В рамках ТЗ реализовано приложение в backend-части с простой авторизацией по паролю (логин: admin/пароль: 1234567)</p>
+<h6>Функционал:</h6>
+<li>Генерация случайного кол-ва яблок (от 1 до 10 за один раз) и вывод их в виде карточек с названием, датой создания, идентификатором, состоянием в виде текста внизу и иконки вверху и изображением в виде разноцветного круга</li>
+<li>Внутри круга отображаются проценты целостности яблока (100% если целое и меньше если уже его ели), а съеденные проценты отображаются визуальным затемнением съеденной части</li>
+<li>Кнопка упасть переводит яблоко в стостояние готовности к употреблению, также при этом запускается процесс гниения, отображаемый прогресс-баром с указанием оставшегося времени (через 5 чаосв по тз)</li>
+<li>наступление гниения визуально отображается в виде пятен на яблоке и его миганием</li>
+<li>Форма для съедания заданного процента от яблока с валидацией (нельзя съесть больше 100%, также нельзя съесть ничего, если яблоко висит на дереве, последующее удаление при съедании 100%)</li>
+<li>Кнопка удаления яблока удаляет его в любом состоянии</li>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
-
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
-
-DIRECTORY STRUCTURE
--------------------
-
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+<h5>Скриншоты для визуализации описанного выше</h5>
